@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html
+        xmlns:th="http://www.thymeleaf.org"
+        lang="en">
+<head>
+    <title>Units converter</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" type="text/css" href="/styles.css">
+</head>
+<body>
+
+<h1>Unit Converter</h1>
+
+<div>
+    <a href="/unit-conversion/?unitType=length"
+       th:classappend="${currentTab.equals('length') ? 'active-tab' : ''}">
+        Length
+    </a>
+    <a href="/unit-conversion/?unitType=weight"
+       th:classappend="${currentTab.equals('weight') ? 'active-tab' : ''}">
+        Weight
+    </a>
+    <a href="/unit-conversion/?unitType=temperature"
+       th:classappend="${currentTab.equals('temperature') ? 'active-tab': ''}">
+        Temperature
+    </a>
+</div>
+
+<div th:if="${viewMode.equals('form')}">
+    <form method="post" th:action="@{/unit-conversion/convert}">
+        <input type="hidden" name="unitType" th:value="${currentTab}">
+
+        <div>
+            <label for="length-to-convert">Enter the length to convert</label><br>
+            <input id="length-to-convert" name="value">
+        </div>
+
+        <div>
+            <label for="unit-from">Unit to convert from</label><br>
+            <select id="unit-from" name="srcUnit">
+                <option th:each="unit : ${units}" th:value="${unit}" th:text="${unit.name}"></option>
+            </select>
+        </div>
+
+        <div>
+            <label for="unit-to">Unit to convert to</label><br>
+            <select id="unit-to" name="dstUnit">
+                <option th:each="unit : ${units}" th:value="${unit}" th:text="${unit.name}"></option>
+            </select>
+        </div>
+
+        <div>
+            <input type="submit" value="Convert">
+        </div>
+    </form>
+</div>
+
+<div th:if="${viewMode.equals('result')}">
+    <p>Result of your calculation</p><br>
+    <h2 th:text="|${value} ${srcUnit.shortCut} = ${convertedValue} ${dstUnit.shortCut}|"></h2><br>
+
+    <button>
+        <a th:href="|/unit-conversion/?unitType=${currentTab}|">
+            Reset
+        </a>
+    </button>
+</div>
+
+</body>
+</html>
