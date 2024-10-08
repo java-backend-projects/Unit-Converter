@@ -16,7 +16,7 @@ public class UnitConverterImpl implements UnitConverter {
             case LengthMeasurementUnit l -> l.convertTo((LengthMeasurementUnit) dstUnit, value);
             case WeightMeasurementUnit w -> w.convertTo((WeightMeasurementUnit) dstUnit, value);
             case TemperatureMeasurementUnit t -> t.convertTo((TemperatureMeasurementUnit) dstUnit, value);
-            default -> throw new IllegalStateException("Unexpected value: " + srcUnit);
+            default -> throw new IllegalArgumentException("Unexpected value (argument srcUnit): " + srcUnit);
         };
     }
 }

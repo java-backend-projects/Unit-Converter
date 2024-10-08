@@ -31,7 +31,7 @@ public class UnitConversionController {
             case "length" -> LengthMeasurementUnit.values();
             case "weight" -> WeightMeasurementUnit.values();
             case "temperature" -> TemperatureMeasurementUnit.values();
-            default -> throw new IllegalArgumentException("unitType");
+            default -> throw new IllegalArgumentException("Unexpected value (argument unitType): " + unitType);
         });
 
         return "index";
